@@ -1,7 +1,9 @@
 #include "GameManager.h"
 
+#include "GraphicManager.h"
 #include "Camera.h"
 #include "Scene.h"
+#include "TestObject.h"
 
 LPDIRECT3D9 GameManager::g_pD3D = LPDIRECT3D9();
 LPDIRECT3DDEVICE9 GameManager::g_pd3dDevice = LPDIRECT3DDEVICE9();
@@ -24,7 +26,11 @@ void GameManager::Init(HWND hWnd)
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 		&d3dpp, &g_pd3dDevice);
 
+	GraphicManager::Init(g_pd3dDevice);
+
 	nowScene = new Scene();
+
+	Instantiate<TestObject>({0.0f, 0.0f});
 }
 
 void GameManager::Update()
@@ -34,14 +40,15 @@ void GameManager::Update()
 
 void GameManager::Render()
 {
-	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 255, 255), 1.0f, 0);
+	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(70, 70, 70), 1.0f, 0);
+	//g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(rand() % 360, rand() % 360, rand() % 360), 1.0f, 0);
 
 
 	g_pd3dDevice->BeginScene();
 
 	// 오브젝트 렌더링
 
-
+	GraphicManager::Render();
 
 
 	g_pd3dDevice->EndScene();

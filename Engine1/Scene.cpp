@@ -11,6 +11,11 @@ Scene::~Scene()
 {
 }
 
+std::list<GameObject*> & Scene::GetObjectList()
+{
+	return objectList;
+}
+
 void Scene::AddGameObject(GameObject * obj)
 {
 	objectList.push_back(obj);
@@ -32,6 +37,7 @@ void Scene::Update()
 		else
 		{
 			obj->Update();
+			obj->UpdateAnimation();
 		}
 	}
 

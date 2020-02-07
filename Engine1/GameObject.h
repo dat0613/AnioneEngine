@@ -11,12 +11,16 @@
 //class Component;
 using namespace std;
 
+class Animation;
+
 class GameObject
 {
 public:
 
 	GameObject();
 	~GameObject();
+
+	Animation * animation;
 
 	D3DXVECTOR2 position;
 	D3DXVECTOR2 scale;
@@ -29,6 +33,7 @@ public:
 	virtual void LateUpdate();
 	virtual void OnDestroy();
 
+	void UpdateAnimation();
 
 	//template<class T>
 	//T * AddComponent();
