@@ -3,10 +3,11 @@
 #include "Animation.h"
 
 GameObject::GameObject() : 
-	position({ 0.0f, 0.0f }), 
-	scale({ 0.0f, 0.0f }),
-	degree(0.0f), 
-	isActive(true)
+	position({ 0.0f, 0.0f }),
+	scale({ 1.0f, 1.0f }),
+	degree(0.0f),
+	isActive(true),
+	sortingLayer(0)
 {
 	animation = new Animation();
 }
