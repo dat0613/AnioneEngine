@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Bullet.h"
 #include "Animation.h"
+#include "Camera.h"
 
 Bullet::Bullet() :
 	direction({ 0.0f, 0.0f }),
@@ -16,6 +17,7 @@ Bullet::~Bullet()
 
 void Bullet::Awake()
 {
+	PlaySound(L"./Resource/Sound/Shot.wav", NULL, SND_FILENAME | SND_ASYNC);
 	animation->SetAnimation("Bullet");
 }
 
@@ -25,6 +27,15 @@ void Bullet::Update()
 
 	if (clock() - spawnTime > aliveTime)
 	{
+		isActive = false;
+	}
+}
+
+void Bullet::OnCollisionEnter(GameObject * gameObject)
+{
+	if (gameObject->name == "Enemy")
+	{// 맞은 애가 적임
+		gameObject->isActive = false;
 		isActive = false;
 	}
 }

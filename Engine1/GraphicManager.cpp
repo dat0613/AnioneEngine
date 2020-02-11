@@ -8,7 +8,7 @@
 LPDIRECT3DDEVICE9 GraphicManager::device = nullptr;
 std::map<std::string, LPDIRECT3DTEXTURE9> GraphicManager::textureMap = std::map<std::string, LPDIRECT3DTEXTURE9>();
 LPD3DXSPRITE GraphicManager::sprite = nullptr;
-
+ID3DXFont * GraphicManager::font = nullptr;
 
 GraphicManager::GraphicManager()
 {
@@ -24,12 +24,27 @@ void GraphicManager::Init(LPDIRECT3DDEVICE9 device)
 	GraphicManager::device = device;
 
 	D3DXCreateSprite(device, &sprite);
+	D3DXCreateFont
+	(
+		device,
+		30,
+		0,
+		FW_EXTRABOLD,
+		1,
+		FALSE,
+		DEFAULT_CHARSET,
+		OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE,
+		L"±¼¸²Ã¼",
+		&font
+	);
 
-	AddTexture("TestImage", L"./Resource/TestImage.png");
-	AddTexture("TestAnimation", L"./Resource/TestAnimation.png");
-	AddTexture("BackGround", L"./Resource/BackGround.png");
-	AddTexture("Bullet", L"./Resource/Bullet.png");
-	AddTexture("Enemy", L"./Resource/Enemy.png");
+	AddTexture("TestImage", L"./Resource/Image/TestImage.png");
+	AddTexture("TestAnimation", L"./Resource/Image/TestAnimation.png");
+	AddTexture("BackGround", L"./Resource/Image/BackGround.png");
+	AddTexture("Bullet", L"./Resource/Image/Bullet.png");
+	AddTexture("Enemy", L"./Resource/Image/Enemy.png");
 
 }
 
@@ -125,6 +140,8 @@ void GraphicManager::Render(GameObject * object)
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	sprite->Draw(tex, &rc, NULL, NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	sprite->End();
+
+	object->OnRender();
 }
 
 D3DXVECTOR2 GraphicManager::GetTextureSize(LPDIRECT3DTEXTURE9 texture)
@@ -147,4 +164,15 @@ bool GraphicManager::compare(GameObject * o1, GameObject * o2)
 	if (o1->sortingLayer < o2->sortingLayer)
 		return true;
 	return false;
+}
+
+void GraphicManager::RenderText(std::string str, D3DXVECTOR2 position)
+{
+	RECT rc;
+	rc.left = position.x + Camera::screenWidth * 0.5f - Camera::position.x;
+	rc.top = position.y + Camera::screenHeight * 0.5f - Camera::position.y;
+	rc.right = Camera::screenWidth;
+	rc.bottom = Camera::screenHeight;
+
+	font->DrawTextA(NULL, str.c_str(), -1, &rc, DT_NOCLIP, D3DCOLOR_XRGB(0, 0, 0));
 }

@@ -36,7 +36,7 @@ public:
 
 	static HWND hWnd;
 
-	enum class KeyCode { W, A, S, D, Space, mouse0, mouse1, MAX };
+	enum class KeyCode { W, A, S, D, Space, mouse0, mouse1, O, P, MAX };
 
 	static void AddKey(KeyCode keyCode, int vkCode);
  

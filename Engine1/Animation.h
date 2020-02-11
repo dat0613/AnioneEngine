@@ -4,11 +4,15 @@
 #include <ctime>
 #include <string>
 
+class GameObject;
+
 class Animation
 {
 public:
 
 	std::string textureName;
+
+	GameObject * parent;
 
 	D3DXVECTOR2 imageSize;// 애니메이션 이미지의 전체크기
 	D3DXVECTOR2 frameSize;// 한 프레임의 사이즈

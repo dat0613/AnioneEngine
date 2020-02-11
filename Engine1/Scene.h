@@ -12,13 +12,19 @@ public:
 	Scene();
 	~Scene();
 
+	std::string nextSceneName;
+
 	std::list<GameObject *> & GetObjectList();
 	void AddGameObject(GameObject * obj);
+	void CheckNextScene();
 	void Update();
+	void LateUpdate();
 	void CollisionCheck();
+	void ChangeScene(std::string sceneName);
 
 private:
 	std::list<GameObject *> objectList;
+	bool AABB(GameObject * obj1, GameObject * obj2);
 };
 
 template <class T>

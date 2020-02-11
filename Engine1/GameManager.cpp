@@ -3,9 +3,7 @@
 #include "GraphicManager.h"
 #include "Camera.h"
 #include "Scene.h"
-#include "TestObject.h"
-#include "BackGround.h"
-#include "Enemy.h"
+
 
 #include "InputManager.h"
 
@@ -35,19 +33,16 @@ void GameManager::Init(HWND hWnd)
 
 	nowScene = new Scene();
 
-	Instantiate<Enemy>({ 500, 500 });
-	Instantiate<Enemy>({ -500, 500 });
-	Instantiate<Enemy>({ 500, -500 });
-	Instantiate<Enemy>({ -500, -500 });
-
-	Instantiate<TestObject>({ 0.0f, 0.0f });
-	Instantiate<BackGround>({ 0.0f, 0.0f });
+	nowScene->ChangeScene("Main");
 }
 
 void GameManager::Update()
 {
+	nowScene->CheckNextScene();
 	InputManager::Update();
 	nowScene->Update();
+	nowScene->CollisionCheck();
+	nowScene->LateUpdate();
 	Camera::Update();
 }
 

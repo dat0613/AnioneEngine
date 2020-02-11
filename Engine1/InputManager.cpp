@@ -24,6 +24,8 @@ void InputManager::Init(HWND hWnd)
 	AddKey(KeyCode::A, 'A');
 	AddKey(KeyCode::S, 'S');
 	AddKey(KeyCode::D, 'D');
+	AddKey(KeyCode::O, 'O');
+	AddKey(KeyCode::P, 'P');
 
 	AddKey(KeyCode::Space, VK_SPACE);
 
@@ -55,7 +57,7 @@ void InputManager::Update()
 	ScreenToClient(hWnd, &pos);
 	mousePosition = 
 	{
-		static_cast<float>(pos.x) - Camera::screenWidth * 0.5f,
+		static_cast<float>(pos.x) - Camera::screenWidth  * 0.5f,
 		static_cast<float>(pos.y) - Camera::screenHeight * 0.5f
 	};
 
